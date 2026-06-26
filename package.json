@@ -1,0 +1,50 @@
+{
+  "name": "go-delivery-pricing",
+  "version": "0.1.0",
+  "description": "Framework-agnostic delivery pricing SDK for ecommerce checkout flows.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "node --test --import tsx test/*.test.ts",
+    "prepublishOnly": "npm run build && npm run typecheck && npm test"
+  },
+  "keywords": [
+    "delivery",
+    "checkout",
+    "ecommerce",
+    "google-maps",
+    "pricing"
+  ],
+  "author": "Albert Mensah",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/your-org/go-delivery-pricing.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-org/go-delivery-pricing/issues"
+  },
+  "homepage": "https://github.com/your-org/go-delivery-pricing#readme",
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}
