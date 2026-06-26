@@ -1,4 +1,4 @@
-# go-delivery-pricing
+# Go-Delivery-Pricing
 
 Framework-agnostic TypeScript SDK for ecommerce checkout delivery pricing.
 
@@ -17,13 +17,13 @@ npm install go-delivery-pricing
 ```ts
 import {
   createDeliveryPricingClient,
-  createMockProviderAdapter
+  createMockProviderAdapter,
 } from "go-delivery-pricing";
 
 const delivery = createDeliveryPricingClient({
   pickupLocation: {
     address: "Main warehouse",
-    coordinates: { lat: 5.6037, lng: -0.187 }
+    coordinates: { lat: 5.6037, lng: -0.187 },
   },
   currency: "GHS",
   fallbackPrice: 60,
@@ -32,7 +32,7 @@ const delivery = createDeliveryPricingClient({
   providers: {
     bolt: createMockProviderAdapter({ source: "bolt", amount: 35 }),
     yango: createMockProviderAdapter({ source: "yango", amount: 42 }),
-    uber: createMockProviderAdapter({ source: "uber", amount: 39 })
+    uber: createMockProviderAdapter({ source: "uber", amount: 39 }),
   },
   internalDelivery: {
     baseFee: 12,
@@ -41,9 +41,9 @@ const delivery = createDeliveryPricingClient({
     maximumFee: 90,
     distanceBands: [
       { upToKm: 3, fee: 10 },
-      { upToKm: 8, fee: 25 }
-    ]
-  }
+      { upToKm: 8, fee: 25 },
+    ],
+  },
 });
 
 const matches = await delivery.searchLocations("East Legon");
@@ -63,7 +63,7 @@ Use this package in server-side Next.js code, such as an App Router route handle
 // app/api/delivery-price/route.ts
 import {
   createDeliveryPricingClient,
-  createMockProviderAdapter
+  createMockProviderAdapter,
 } from "go-delivery-pricing";
 
 export async function POST(request: Request) {
@@ -72,7 +72,7 @@ export async function POST(request: Request) {
   const delivery = createDeliveryPricingClient({
     pickupLocation: {
       address: "Main warehouse",
-      coordinates: { lat: 5.6037, lng: -0.187 }
+      coordinates: { lat: 5.6037, lng: -0.187 },
     },
     currency: "GHS",
     fallbackPrice: 60,
@@ -81,14 +81,14 @@ export async function POST(request: Request) {
     providers: {
       bolt: createMockProviderAdapter({ source: "bolt", amount: 35 }),
       yango: createMockProviderAdapter({ source: "yango", amount: 42 }),
-      uber: createMockProviderAdapter({ source: "uber", amount: 39 })
+      uber: createMockProviderAdapter({ source: "uber", amount: 39 }),
     },
     internalDelivery: {
       baseFee: 12,
       perKmFee: 4,
       minimumFee: 20,
-      maximumFee: 90
-    }
+      maximumFee: 90,
+    },
   });
 
   const price = await delivery.getDeliveryPrice(destination);
@@ -111,14 +111,14 @@ export function CheckoutDeliveryPrice() {
     const response = await fetch("/api/delivery-price", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         destination: {
           address: "Customer address",
-          coordinates: { lat: 5.62, lng: -0.19 }
-        }
-      })
+          coordinates: { lat: 5.62, lng: -0.19 },
+        },
+      }),
     });
 
     const price = await response.json();
@@ -147,9 +147,9 @@ export async function fetchDeliveryPrice(destination: {
   const response = await fetch("/api/delivery-price", {
     method: "POST",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify({ destination })
+    body: JSON.stringify({ destination }),
   });
 
   if (!response.ok) {
@@ -165,12 +165,15 @@ import { useState } from "react";
 import { fetchDeliveryPrice } from "./delivery";
 
 export function DeliveryButton() {
-  const [price, setPrice] = useState<{ finalAmount: number; currency: string } | null>(null);
+  const [price, setPrice] = useState<{
+    finalAmount: number;
+    currency: string;
+  } | null>(null);
 
   async function handleClick() {
     const nextPrice = await fetchDeliveryPrice({
       address: "Customer address",
-      coordinates: { lat: 5.62, lng: -0.19 }
+      coordinates: { lat: 5.62, lng: -0.19 },
     });
 
     setPrice(nextPrice);
@@ -205,9 +208,9 @@ const boltAdapter = {
     return {
       source: "bolt",
       amount: 35,
-      currency: request.currency
+      currency: request.currency,
     };
-  }
+  },
 };
 ```
 
